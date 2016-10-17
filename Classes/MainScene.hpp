@@ -44,10 +44,14 @@ public:
     float tableHeight;
     float rowHeight;
     float rowWidth;
-    
+    int countImage;
     cocos2d::extension::TableView* m_tableView;
     
+    Sprite* playerImage;
+    Label* highScoreTextSaveGame;
+    
     std::vector<ItemsDetailStruct*> m_seasonList;
+    std::vector<std::string> m_flipImages;
     
     LayerColor* m_backgroundLayer;
     LayerColor* m_upperLayer;
@@ -56,12 +60,14 @@ public:
     
     
     void createBackground();
-    void createMenuItems();
     void createOtherLayers();
     void createTable();
     void createSeasonInfoList();
     void createUpperLayerItems();
+    void createMiddleLayerContent();
+    void updateHighScoreAfterGame();
     
+    void updateCharacterImage(float dt);
     void listItemCallback(Ref* pSender);
     
     void chandlerItemCallback(Ref* pSender);
@@ -70,6 +76,7 @@ public:
     void rachelItemCallback(Ref* pSender);
     void pheobeItemCallback(Ref* pSender);
     void monicaItemCallback(Ref* pSender);
+    void playSaveMeCallback(Ref* pSender);
     
     CREATE_FUNC(MainScene);
     

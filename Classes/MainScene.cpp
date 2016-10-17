@@ -9,6 +9,7 @@
 #include "MainScene.hpp"
 #include "AppDelegate.h"
 #include "constant.h"
+#include "Mask.h"
 
 USING_NS_CC_EXT;
 using namespace std;
@@ -20,6 +21,7 @@ int curPageIndex;
 
 #define CELL_BG_TAG                         201
 #define CELL_NAME_TAG                       202
+
 
 Scene* MainScene::createScene()
 {
@@ -54,6 +56,7 @@ void MainScene::onEnter()
     Layer::onEnter();
     
     m_keyboardListener = NULL;
+    countImage = 0;
     
     visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -73,16 +76,37 @@ void MainScene::onEnter()
     createSeasonInfoList();
     
     createBackground();
-//    createMenuItems();
     
     createOtherLayers();
 
     createUpperLayerItems();
     
     createTable();
+    
+    createMiddleLayerContent();
+    
+    Node::onEnter();
+    this->schedule(CC_SCHEDULE_SELECTOR(MainScene::updateCharacterImage), 3.5);
+
 }
 
+void MainScene::updateCharacterImage(float dt){
 
+    CCLOG("inside image update");
+    
+    if (playerImage){
+        countImage++;
+        
+        if (countImage > m_flipImages.size() - 1){
+            countImage = 0;
+        }
+        
+        std::string imagePath = m_flipImages.at(countImage);
+        Sprite* tempImage = Sprite::create(imagePath);
+        playerImage->setTexture(tempImage->getTexture());
+    }
+
+}
 
 void MainScene::createBackground(){
 
@@ -161,6 +185,20 @@ void MainScene::createSeasonInfoList(){
     item10->m_imageURL = IMAGE_PATH"icon10.jpg";
     m_seasonList.push_back(item10);
     
+    
+    
+    m_flipImages.push_back(FLIP_IMAGES"flip1.jpg");
+    m_flipImages.push_back(FLIP_IMAGES"flip2.jpg");
+    m_flipImages.push_back(FLIP_IMAGES"flip3.jpeg");
+    m_flipImages.push_back(FLIP_IMAGES"flip4.jpg");
+    m_flipImages.push_back(FLIP_IMAGES"flip5.jpg");
+    m_flipImages.push_back(FLIP_IMAGES"flip6.jpg");
+    m_flipImages.push_back(FLIP_IMAGES"flip7.jpg");
+    m_flipImages.push_back(FLIP_IMAGES"flip8.jpg");
+    m_flipImages.push_back(FLIP_IMAGES"flip9.jpg");
+    m_flipImages.push_back(FLIP_IMAGES"flip10.png");
+    m_flipImages.push_back(FLIP_IMAGES"flip11.jpg");
+    m_flipImages.push_back(FLIP_IMAGES"flip12.jpg");
 }
 
 void MainScene::createUpperLayerItems(){
@@ -253,15 +291,84 @@ void MainScene::createOtherLayers(){
     horLine2->drawLine(Vec2(0, 0), Vec2(m_middleLayer->getContentSize().width, 0),Color4F::WHITE);
     m_middleLayer->addChild(horLine2);
     
+    DrawNode* verLine1 = DrawNode::create();
+    verLine1->setLineWidth(5);
+    verLine1->setColor(Color3B::WHITE);
+    verLine1->drawLine(Vec2(m_middleLayer->getContentSize().width*0.5, 0), Vec2(m_middleLayer->getContentSize().width * 0.5, m_middleLayer->getContentSize().height),Color4F::WHITE);
+    m_middleLayer->addChild(verLine1);
+    
     m_lowerLayer = LayerColor::create(Color4B::BLACK, visibleSize.width, availableHeight * 0.2);
     m_lowerLayer->setPosition(Vec2(0, visibleSize.height - visibleSize.height * 0.1 - availableHeight * 1));
     this->addChild(m_lowerLayer);
 
 }
 
-void MainScene::createMenuItems(){
+void MainScene::createMiddleLayerContent(){
 
 
+    //for save me game
+    auto clipper = Mask::getInstance()->getCircularMask(60);
+    std::string imagePath = m_flipImages.at(countImage);
+    
+    playerImage = Sprite::create(imagePath);
+    
+    int scaleBounds = 130;
+    if(playerImage)
+    {
+        
+        float scaleX = scaleBounds/playerImage->getContentSize().width;
+        float scaleY = scaleBounds/playerImage->getContentSize().height;
+        playerImage->setScale(MIN(scaleX, scaleY));
+        clipper->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.62, m_middleLayer->getContentSize().height * 0.735));
+        clipper->addChild(playerImage);
+        m_middleLayer->addChild(clipper);
+        
+    }
+    
+    Label* gameName = Label::createWithTTF("SAVE ME", FONT_AFTON_JAMES, 40);
+    gameName->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.85, m_middleLayer->getContentSize().height * 0.9));
+    m_middleLayer->addChild(gameName);
+    
+    std::string description = "Select a character to save and save it till all other characters die.";
+    Label* gameDescription = Label::createWithTTF(description, FONT_DOSIS, 20);
+    gameDescription->setWidth(m_middleLayer->getContentSize().width * 0.3);
+    gameDescription->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.875, m_middleLayer->getContentSize().height * 0.675));
+    m_middleLayer->addChild(gameDescription);
+    
+    UserDefault* userDef =  UserDefault::getInstance();
+    int value = userDef->getIntegerForKey(GAME_HIGH_SCORE_KEY_SAVE_GAME, 0);
+    
+    std::string highScore = "HIGH SCORE :  " + std::to_string(value);
+    
+    highScoreTextSaveGame = Label::createWithTTF(highScore, FONT_HEADLINE, 20);
+    highScoreTextSaveGame->setAnchorPoint(Vec2(0, 0.5));
+    highScoreTextSaveGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.5 + 20, m_middleLayer->getContentSize().height * 0.4));
+    m_middleLayer->addChild(highScoreTextSaveGame);
+    
+    Sprite* playButton = Sprite::create("rectangle.png");
+    playButton->setScaleY(0.8);
+    Label* play = Label::createWithTTF("I wanna Play", FONT_HEADLINE, 25);
+    play->setColor(Color3B::BLACK);
+    play->setPosition(Vec2(playButton->getContentSize().width * 0.5, playButton->getContentSize().height * 0.5));
+    playButton->addChild(play);
+    
+    
+    Sprite* playButtonPressed = Sprite::create("rectangle.png");
+    playButtonPressed->setScaleY(0.8);
+    playButtonPressed->setScaleX(0.95);
+    
+    Label* playPressed = Label::createWithTTF("I wanna Play", FONT_HEADLINE, 23);
+    playPressed->setColor(Color3B::BLACK);
+    playPressed->setPosition(Vec2(playButtonPressed->getContentSize().width * 0.5, playButtonPressed->getContentSize().height * 0.5));
+    playButtonPressed->addChild(playPressed);
+    
+    MenuItemSprite* playItemSaveMe = MenuItemSprite::create(playButton, playButtonPressed, CC_CALLBACK_1(MainScene::playSaveMeCallback, this));
+    playItemSaveMe->setPosition(Vec2(m_middleLayer->getContentSize().width* 0.8, playItemSaveMe->getContentSize().height * 0.75));
+    
+    auto playMenuSaveMe = Menu::create(playItemSaveMe,NULL);
+    playMenuSaveMe->setPosition(Vec2(0,0));
+    m_middleLayer->addChild(playMenuSaveMe);
+    
 }
 
 //#pragma TableView
@@ -282,6 +389,15 @@ void MainScene::createTable()
     m_tableView->setVerticalFillOrder(cocos2d::extension::TableView::VerticalFillOrder::TOP_DOWN);
     m_lowerLayer->addChild(m_tableView);
     
+}
+
+void MainScene::updateHighScoreAfterGame(){
+    
+    
+    UserDefault* userDef =  UserDefault::getInstance();
+    int value = userDef->getIntegerForKey(GAME_HIGH_SCORE_KEY_SAVE_GAME, 0);
+    std::string highScore = "HIGH SCORE :  " + std::to_string(value);
+    highScoreTextSaveGame->setString(highScore);
 }
 
 TableViewCell* MainScene::tableCellAtIndex(TableView *table, ssize_t idx)
@@ -410,6 +526,13 @@ void MainScene::monicaItemCallback(Ref* pSender){
     CCLOG("inside monica");
 }
 
+void MainScene::playSaveMeCallback(Ref* pSender){
+
+    CCLOG("play save me game");
+    AppDelegate::getDelegate()->PlaySaveMeGame();
+    
+
+}
 
 void MainScene::listItemCallback(Ref* pSender){
 

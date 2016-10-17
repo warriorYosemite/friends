@@ -3,6 +3,7 @@
 #include "AppMacros.h"
 #include "MainScene.hpp"
 #include "codecvt"
+#include "StageTwo.h"
 
 USING_NS_CC;
 
@@ -75,8 +76,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //    // run
 //    director->runWithScene(scene);
 
-    auto scene = MainScene::createScene();
-    director->runWithScene(scene);
+    showMainScene();
     
     return true;
 }
@@ -185,3 +185,23 @@ std::string AppDelegate::getTrimmedStringWithRange(std::string text,int range)
     
 }
 
+void AppDelegate::showMainScene(){
+
+    auto scene = MainScene::createScene();
+    
+    auto curScene = Director::getInstance()->getRunningScene();
+    if (curScene != NULL){
+     
+        Director::getInstance()->replaceScene(scene);
+    }else{
+    
+        Director::getInstance()->runWithScene(scene);
+    }
+}
+
+void AppDelegate::PlaySaveMeGame(){
+
+    auto gameScene = StageTwo::createScene();
+    Director::getInstance()->replaceScene(gameScene);
+
+}
