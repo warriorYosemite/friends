@@ -90,33 +90,33 @@ void SideLayer::onEnter()
 void SideLayer::setDataList(){
 
     ItemsDetailStruct* item1 = new ItemsDetailStruct();
-    item1->m_heading = "How to Join";
+    item1->m_heading = "Fun Facts";
     item1->m_imageURL = ICON_PATH"icon1.png";
     m_contentList.push_back(item1);
     
     ItemsDetailStruct* item2 = new ItemsDetailStruct();
-    item2->m_heading = "SSB Tips";
+    item2->m_heading = "Transformation";
     item2->m_imageURL = ICON_PATH"icon2.png";
     m_contentList.push_back(item2);
     
     ItemsDetailStruct* item3 = new ItemsDetailStruct();
-    item3->m_heading = "Share Your Story";
+    item3->m_heading = "Guest Characters";
     item3->m_imageURL = ICON_PATH"icon3.png";
     m_contentList.push_back(item3);
     
     ItemsDetailStruct* item12 = new ItemsDetailStruct();
-    item12->m_heading = "Read A Story";
+    item12->m_heading = "People Views";
     item12->m_imageURL = ICON_PATH"icon12.png";
     m_contentList.push_back(item12);
     
     
     ItemsDetailStruct* item4 = new ItemsDetailStruct();
-    item4->m_heading = "SSB Centres";
+    item4->m_heading = "Awards";
     item4->m_imageURL = ICON_PATH"icon4.png";
     m_contentList.push_back(item4);
     
     ItemsDetailStruct* item5 = new ItemsDetailStruct();
-    item5->m_heading = "Achievers";
+    item5->m_heading = "Picture Gallery";
     item5->m_imageURL = ICON_PATH"icon5.png";
     m_contentList.push_back(item5);
     
@@ -125,10 +125,10 @@ void SideLayer::setDataList(){
     item6->m_imageURL = ICON_PATH"icon6.png";
     m_contentList.push_back(item6);
     
-    ItemsDetailStruct* item7 = new ItemsDetailStruct();
-    item7->m_heading = "Be A Writer";
-    item7->m_imageURL = ICON_PATH"icon7.png";
-    m_contentList.push_back(item7);
+//    ItemsDetailStruct* item7 = new ItemsDetailStruct();
+//    item7->m_heading = "Think it";
+//    item7->m_imageURL = ICON_PATH"icon7.png";
+//    m_contentList.push_back(item7);
     
     ItemsDetailStruct* item8 = new ItemsDetailStruct();
     item8->m_heading = "Settings";
@@ -269,12 +269,12 @@ void SideLayer::createContentLayer(){
     m_contentLayer->setPosition(Vec2(0, 0));
     m_backgroundLayer->addChild(m_contentLayer);
     
-    quoteLayer = LayerColor::create(Color4B(51,64,28,255), m_contentLayer->getContentSize().width, m_contentLayer->getContentSize().height * 0.15);
+    quoteLayer = LayerColor::create(Color4B::BLACK, m_contentLayer->getContentSize().width, m_contentLayer->getContentSize().height * 0.15);
     quoteLayer->setPosition(Vec2(0, m_contentLayer->getContentSize().height - quoteLayer->getContentSize().height));
     m_contentLayer->addChild(quoteLayer);
     
-    std::string message = " 'If a man says he is not afraid of dying,\nhe is either lying or is a Gurkha.' \n\n -Field Marshal Sam Manekshaw";
-    Label* quoteOfTheDay = Label::createWithTTF(message, FONT_SOURCE_SANS, 22);
+    std::string message = " 'Welcome to the real world.\nIt sucks. \nYou’re gonna love it!' \n -Monica Geller";
+    Label* quoteOfTheDay = Label::createWithTTF(message, FONT_SOURCE_SANS, 23);
     quoteOfTheDay->setAlignment(cocos2d::TextHAlignment::CENTER);
     quoteOfTheDay->setAnchorPoint(Vec2(0.5,0.5));
     quoteOfTheDay->setPosition(Vec2(quoteLayer->getContentSize().width * 0.5, quoteLayer->getContentSize().height * 0.5));

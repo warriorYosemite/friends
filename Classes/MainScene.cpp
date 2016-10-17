@@ -18,6 +18,8 @@ int curPageIndex;
 
 #define FONT_SIZE_MENUITEM                  27
 
+#define CELL_BG_TAG                         201
+#define CELL_NAME_TAG                       202
 
 Scene* MainScene::createScene()
 {
@@ -68,12 +70,16 @@ void MainScene::onEnter()
     m_keyboardListener->onKeyReleased = CC_CALLBACK_2(MainScene::onKeyReleased, this);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_keyboardListener, this);
     
+    createSeasonInfoList();
+    
     createBackground();
 //    createMenuItems();
     
     createOtherLayers();
 
     createUpperLayerItems();
+    
+    createTable();
 }
 
 
@@ -103,6 +109,59 @@ void MainScene::createBackground(){
 
 }
 
+void MainScene::createSeasonInfoList(){
+    
+    ItemsDetailStruct* item1 = new ItemsDetailStruct();
+    item1->m_heading = "SEASON 1";
+    item1->m_imageURL = IMAGE_PATH"icon1.jpg";
+    m_seasonList.push_back(item1);
+    
+    ItemsDetailStruct* item2 = new ItemsDetailStruct();
+    item2->m_heading = "SEASON 2";
+    item2->m_imageURL = IMAGE_PATH"icon2.jpg";
+    m_seasonList.push_back(item2);
+    
+    ItemsDetailStruct* item3 = new ItemsDetailStruct();
+    item3->m_heading = "SEASON 3";
+    item3->m_imageURL = IMAGE_PATH"icon3.jpg";
+    m_seasonList.push_back(item3);
+    
+    ItemsDetailStruct* item4 = new ItemsDetailStruct();
+    item4->m_heading = "SEASON 4";
+    item4->m_imageURL = IMAGE_PATH"icon6.jpg";
+    m_seasonList.push_back(item4);
+    
+    ItemsDetailStruct* item5 = new ItemsDetailStruct();
+    item5->m_heading = "SEASON 5";
+    item5->m_imageURL = IMAGE_PATH"icon5.jpg";
+    m_seasonList.push_back(item5);
+    
+    ItemsDetailStruct* item6 = new ItemsDetailStruct();
+    item6->m_heading = "SEASON 6";
+    item6->m_imageURL = IMAGE_PATH"icon4.jpg";
+    m_seasonList.push_back(item6);
+    
+    ItemsDetailStruct* item7 = new ItemsDetailStruct();
+    item7->m_heading = "SEASON 7";
+    item7->m_imageURL = IMAGE_PATH"icon7.jpg";
+    m_seasonList.push_back(item7);
+    
+    ItemsDetailStruct* item8 = new ItemsDetailStruct();
+    item8->m_heading = "SEASON 8";
+    item8->m_imageURL = IMAGE_PATH"icon8.jpg";
+    m_seasonList.push_back(item8);
+    
+    ItemsDetailStruct* item9 = new ItemsDetailStruct();
+    item9->m_heading = "SEASON 9";
+    item9->m_imageURL = IMAGE_PATH"icon9.jpg";
+    m_seasonList.push_back(item9);
+    
+    ItemsDetailStruct* item10 = new ItemsDetailStruct();
+    item10->m_heading = "SEASON 10";
+    item10->m_imageURL = IMAGE_PATH"icon10.jpg";
+    m_seasonList.push_back(item10);
+    
+}
 
 void MainScene::createUpperLayerItems(){
 
@@ -204,6 +263,120 @@ void MainScene::createMenuItems(){
 
 
 }
+
+//#pragma TableView
+void MainScene::createTable()
+{
+
+    //create Table View within lower layer
+    
+    tableWidth = m_lowerLayer->getContentSize().width;
+    tableHeight = m_lowerLayer->getContentSize().height;
+    
+    Vec2 tablePosition = Vec2(0,0);
+    
+    m_tableView = cocos2d::extension::TableView::create(this, Size(tableWidth,tableHeight));
+    m_tableView->setDirection(cocos2d::extension::TableView::Direction::HORIZONTAL);
+    m_tableView->setPosition(tablePosition);
+    m_tableView->setDelegate(this);
+    m_tableView->setVerticalFillOrder(cocos2d::extension::TableView::VerticalFillOrder::TOP_DOWN);
+    m_lowerLayer->addChild(m_tableView);
+    
+}
+
+TableViewCell* MainScene::tableCellAtIndex(TableView *table, ssize_t idx)
+{
+    
+    std::string name = m_seasonList.at(idx)->m_heading;
+    std::string imagePath = m_seasonList.at(idx)->m_imageURL;
+    
+    TableViewCell *cell = table->dequeueCell();
+    if (cell){
+        cell->removeAllChildrenWithCleanup(true);
+    }
+    else{
+        cell = new TableViewCell();
+        cell->autorelease();
+    }
+    
+    Sprite* tempImage = Sprite::create(imagePath);
+    
+    Sprite* cellBg = Sprite::create(CHARACTERS"chandler.jpg");
+    cellBg->setAnchorPoint(Vec2(0.5, 1));
+    cellBg->setScaleY(0.75);
+    cellBg->setPosition(Vec2(rowWidth * 0.5 , rowHeight * 0.975));
+    cellBg->setTag(CELL_BG_TAG);
+    cell->addChild(cellBg);
+    
+    Label* nameLabel = Label::createWithTTF(name, FONT_DOSIS, 22);
+    nameLabel->setPosition(rowWidth * 0.5, rowHeight * 0.1);
+    nameLabel->setColor(Color3B::WHITE);
+    nameLabel->setTag(CELL_NAME_TAG);
+    cell->addChild(nameLabel);
+    
+    cellBg->setTexture(tempImage->getTexture());
+    
+    return cell;
+}
+
+//tableView
+Size MainScene::tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx)
+{
+    rowHeight = tableHeight;
+    rowWidth = tableWidth / 3.75;
+    return Size(rowWidth, rowHeight);
+}
+
+
+void MainScene::tableCellTouched(TableView *table, TableViewCell *cell)
+{
+    
+    CCLOG("CELL %zd ", cell->getIdx());
+//    Label* label = (Label*)cell->getChildByTag(CELL_BG_TAG)->getChildByTag(CELL_NAME_TAG);
+//    std::string nameStr = label->getString();
+//    
+//    LatestLayer* latestLayer = LatestLayer::createLayer();
+//    if (nameStr.compare(LATEST) == 0)
+//    {
+//        CCLOG("Latest button clicked");
+//        latestLayer->setCategory(LATEST);
+//        
+//    }
+//    else if (nameStr.compare(TRENDING) == 0)
+//    {
+//        CCLOG("Trending button clicked");
+//        latestLayer->setCategory(TRENDING);
+//    }
+//    else if (nameStr.compare(EDITOR_CHOICE) == 0)
+//    {
+//        CCLOG("Editors Choice button clicked");
+//        latestLayer->setCategory(EDITOR_CHOICE);
+//    }
+//    else if (nameStr.compare(TOP_RATED) == 0)
+//    {
+//        CCLOG("Top Rated button clicked");
+//        latestLayer->setCategory(TOP_RATED);
+//    }
+//    else if (nameStr.compare(TV_SHOWS) == 0)
+//    {
+//        CCLOG("TV SHOWS button clicked");
+//        latestLayer->setCategory(TV_SHOWS);
+//    }
+//    else{
+//        CCLOG("No pre defined category selected");
+//        latestLayer->setCategory(LATEST);
+//    }
+//    
+//    this->addChild(latestLayer);
+    
+}
+
+ssize_t MainScene::numberOfCellsInTableView(TableView *table)
+{
+    auto size = m_seasonList.size();
+    return size;
+}
+
 
 
 void MainScene::chandlerItemCallback(Ref* pSender){

@@ -51,6 +51,7 @@
 		521A8EA919F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		5B508ED61DB49F8C00EADE19 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 5B508ED51DB49F8C00EADE19 /* images */; };
 		5BD189E51DB1176D003EDA69 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 5BD189E41DB1176D003EDA69 /* icons */; };
 		5BDE72EB1DB0DF5600FB07AB /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BDE72E91DB0DF5600FB07AB /* SplashScene.cpp */; };
 		5BDE72ED1DB0E28400FB07AB /* splashTwo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BDE72EC1DB0E28400FB07AB /* splashTwo.jpg */; };
@@ -148,6 +149,7 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		5B508ED51DB49F8C00EADE19 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		5BD189E41DB1176D003EDA69 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = icons; sourceTree = "<group>"; };
 		5BDE72E61DB0DF5600FB07AB /* AppMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMacros.h; sourceTree = "<group>"; };
 		5BDE72E71DB0DF5600FB07AB /* commonClasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commonClasses.h; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5B508ED51DB49F8C00EADE19 /* images */,
 				5BD189E41DB1176D003EDA69 /* icons */,
 				5BDE73001DB0FEEC00FB07AB /* characters */,
 				5BDE72F41DB0EF4000FB07AB /* list.png */,
@@ -466,6 +469,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B508ED61DB49F8C00EADE19 /* images in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5BDE72F71DB0EF4000FB07AB /* name.jpg in Resources */,

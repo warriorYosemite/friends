@@ -22,7 +22,7 @@
 using namespace cocos2d::ui;
 USING_NS_CC;
 
-class MainScene : public cocos2d::Layer
+class MainScene : public cocos2d::Layer, public cocos2d::extension::TableViewDataSource, public cocos2d::extension::TableViewDelegate
 {
 
     cocos2d::Size visibleSize;
@@ -39,6 +39,16 @@ public:
     virtual void onEnter();
     virtual void onExit();
 
+    int m_tableSize;
+    float tableWidth;
+    float tableHeight;
+    float rowHeight;
+    float rowWidth;
+    
+    cocos2d::extension::TableView* m_tableView;
+    
+    std::vector<ItemsDetailStruct*> m_seasonList;
+    
     LayerColor* m_backgroundLayer;
     LayerColor* m_upperLayer;
     LayerColor* m_middleLayer;
@@ -48,7 +58,8 @@ public:
     void createBackground();
     void createMenuItems();
     void createOtherLayers();
-
+    void createTable();
+    void createSeasonInfoList();
     void createUpperLayerItems();
     
     void listItemCallback(Ref* pSender);
@@ -63,6 +74,12 @@ public:
     CREATE_FUNC(MainScene);
     
     virtual void onKeyReleased(EventKeyboard::KeyCode keyCode, Event *pEvent);
+    
+    virtual void tableCellTouched(cocos2d::extension::TableView* table, cocos2d::extension::TableViewCell* cell);
+    virtual cocos2d::Size tableCellSizeForIndex(cocos2d::extension::TableView *table, ssize_t idx);
+    virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);
+    virtual ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
+    
 };
 
 #endif /* MainScene_hpp */
