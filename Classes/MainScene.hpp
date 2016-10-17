@@ -49,6 +49,7 @@ public:
     
     Sprite* playerImage;
     Label* highScoreTextSaveGame;
+    Label* highScoreQuizGame;
     
     std::vector<ItemsDetailStruct*> m_seasonList;
     std::vector<std::string> m_flipImages;
@@ -77,6 +78,7 @@ public:
     void pheobeItemCallback(Ref* pSender);
     void monicaItemCallback(Ref* pSender);
     void playSaveMeCallback(Ref* pSender);
+    void playQuizCallback(Ref* pSender);
     
     CREATE_FUNC(MainScene);
     

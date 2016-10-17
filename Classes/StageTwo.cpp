@@ -11,7 +11,7 @@ USING_NS_CC;
 using namespace std;
 
 #define GRID_BASE_TAG               100
-#define NUMBER_OF_GRIDS             6
+#define NUMBER_OF_GRIDS             8
 
 #define TIME_DURATION               2
 
@@ -119,11 +119,13 @@ void StageTwo::selectCharacterToSave(int buttonCount){
     popUpLayerBase->addChild(m_characterSelection);
     
     Label* messageLabel = Label::createWithTTF("Select A Character \n you want to save", GAME_FONT_HEADER, 50);
+    messageLabel->setColor(Color3B::BLACK);
     messageLabel->setAlignment(TextHAlignment::CENTER);
     messageLabel->setPosition(Vec2(m_characterSelection->getContentSize().width * 0.5, m_characterSelection->getContentSize().height * 0.585));
     m_characterSelection->addChild(messageLabel);
 
     Label* okLabel = Label::createWithTTF("OK", GAME_FONT_HEADER, 40);
+    okLabel->setColor(Color3B::BLACK);
     MenuItemLabel* okStr = MenuItemLabel::create(okLabel, CC_CALLBACK_1(StageTwo::okButtonCallback, this));
     okStr->setAnchorPoint(Vec2(0.5,0.5));
     auto okMenu = Menu::create(okStr, NULL);
@@ -138,6 +140,7 @@ void StageTwo::selectCharacterToSave(int buttonCount){
 
         
         Label* cancelLabel = Label::createWithTTF("CANCEL", GAME_FONT_HEADER, 40);
+        cancelLabel->setColor(Color3B::BLACK);
         MenuItemLabel* cancelStr = MenuItemLabel::create(cancelLabel, CC_CALLBACK_1(StageTwo::cancelButtonCallback, this));
         cancelStr->setAnchorPoint(Vec2(0.5,0.5));
         auto cancelMenu = Menu::create(cancelStr, NULL);
@@ -297,13 +300,14 @@ void StageTwo::handleGameOver(){
     }
     
     Label* gameOverText = Label::createWithTTF(popupHeader, GAME_FONT_HEADER, 50);
-    gameOverText->setColor(Color3B::WHITE);
+    gameOverText->setColor(Color3B::BLACK);
+//    gameOverText->setColor(Color3B::WHITE);
     gameOverText->setPosition(Vec2(popUpLayer->getContentSize().width * 0.5, popUpLayer->getContentSize().height - gameOverText->getContentSize().height *0.9));
     popUpLayer->addChild(gameOverText);
 
     std::string yourScoreStr = "Your Score : " + std::to_string(m_Score);
     Label* yourScore = Label::createWithTTF(yourScoreStr, GAME_FONT_HEADER, 50);
-    yourScore->setColor(Color3B::WHITE);
+    yourScore->setColor(Color3B::BLACK);
     yourScore->setAnchorPoint(Vec2(0.5,0.5));
     yourScore->setPosition(Vec2(popUpLayer->getContentSize().width * 0.5, popUpLayer->getContentSize().height * 0.4));
     popUpLayer->addChild(yourScore);
@@ -311,7 +315,7 @@ void StageTwo::handleGameOver(){
     
     std::string highScore = "High Score : " + std::to_string(m_highScore);
     Label* highScoreStr = Label::createWithTTF(highScore, GAME_FONT_HEADER, 50);
-    highScoreStr->setColor(Color3B::WHITE);
+    highScoreStr->setColor(Color3B::BLACK);
     highScoreStr->setAnchorPoint(Vec2(0.5, 0.5));
     highScoreStr->setPosition(Vec2(popUpLayer->getContentSize().width * 0.5, popUpLayer->getContentSize().height * 0.6));
     popUpLayer->addChild(highScoreStr);
@@ -325,6 +329,7 @@ void StageTwo::handleGameOver(){
     }
     
     Label* gameStart = Label::createWithTTF(buttonName, GAME_FONT_HEADER, 55);
+    gameStart->setColor(Color3B::BLACK);
     MenuItemLabel* restartImage = MenuItemLabel::create(gameStart, CC_CALLBACK_1(StageTwo::restartGameScenario, this));
     restartImage->setAnchorPoint(Vec2(0.5,0.5));
     auto restartMenu = Menu::create(restartImage, NULL);
@@ -340,6 +345,7 @@ void StageTwo::handleGameOver(){
     this->addChild(homeButtonBg);
     
     Label* homeLabel = Label::createWithTTF("HOME", GAME_FONT_HEADER, 40);
+    homeLabel->setColor(Color3B::BLACK);
     MenuItemLabel* homeStr = MenuItemLabel::create(homeLabel, CC_CALLBACK_1(StageTwo::homeButtonCallback, this));
     homeStr->setAnchorPoint(Vec2(0.5,0.5));
     auto homeMenu = Menu::create(homeStr, NULL);
@@ -412,38 +418,82 @@ void StageTwo::setNumberOfGrids(int count)
 
 void StageTwo::fillImageVector()
 {
+    GridImage* elem1 = GridImage::create(GAME_IMAGES"imageOne.jpg");
+    elem1->killCountDisplay();
+    elem1->setImageName("Jack Geller");
+    m_colorVector.push_back(elem1);
     
-    GridImage* elem15 = GridImage::create("imageFifteen.jpg");
+    GridImage* elem2 = GridImage::create(GAME_IMAGES"imageTwo.jpg");
+    elem2->killCountDisplay();
+    elem2->setImageName("Judy Geller");
+    m_colorVector.push_back(elem2);
+    
+    GridImage* elem3 = GridImage::create(GAME_IMAGES"imageThree.jpg");
+    elem3->killCountDisplay();
+    elem3->setImageName("OMG Janice");
+    m_colorVector.push_back(elem3);
+    
+    GridImage* elem4 = GridImage::create(GAME_IMAGES"imageFour.jpg");
+    elem4->killCountDisplay();
+    elem4->setImageName("Mike Hannigan");
+    m_colorVector.push_back(elem4);
+    
+    GridImage* elem5 = GridImage::create(GAME_IMAGES"imageFive.png");
+    elem5->killCountDisplay();
+    elem5->setImageName("Carol Willick");
+    m_colorVector.push_back(elem5);
+    
+    GridImage* elem6 = GridImage::create(GAME_IMAGES"imageSix.jpg");
+    elem6->killCountDisplay();
+    elem6->setImageName("Richard Burke");
+    m_colorVector.push_back(elem6);
+    
+    GridImage* elem7 = GridImage::create(GAME_IMAGES"imageSeven.jpg");
+    elem7->killCountDisplay();
+    elem7->setImageName("David");
+    m_colorVector.push_back(elem7);
+    
+    GridImage* elem8 = GridImage::create(GAME_IMAGES"imageEight.jpg");
+    elem8->killCountDisplay();
+    elem8->setImageName("Paul Stevens");
+    m_colorVector.push_back(elem8);
+    
+    GridImage* elem9 = GridImage::create(GAME_IMAGES"imageNine.jpg");
+    elem9->killCountDisplay();
+    elem9->setImageName("Gavin Mitchell");
+    m_colorVector.push_back(elem9);
+    
+    GridImage* elem15 = GridImage::create(GAME_IMAGES"imageFifteen.jpg");
     elem15->killCountDisplay();
     elem15->setImageName("Pizza Joey");
     m_colorVector.push_back(elem15);
     
-    GridImage* elem16 = GridImage::create("imageSixteen.png");
+    GridImage* elem16 = GridImage::create(GAME_IMAGES"imageSixteen.png");
     elem16->killCountDisplay();
     elem16->setImageName("Stylish Rachel");
     m_colorVector.push_back(elem16);
     
-    GridImage* elem17 = GridImage::create("imageSeventeen.jpg");
+    GridImage* elem17 = GridImage::create(GAME_IMAGES"imageSeventeen.jpg");
     elem17->killCountDisplay();
     elem17->setImageName("Freaky Pheobe");
     m_colorVector.push_back(elem17);
     
-    GridImage* elem18 = GridImage::create("imageEighteen.jpeg");
+    GridImage* elem18 = GridImage::create(GAME_IMAGES"imageEighteen.jpeg");
     elem18->killCountDisplay();
     elem18->setImageName("Red Ross");
     m_colorVector.push_back(elem18);
     
-    GridImage* elem19 = GridImage::create("imageNineteen.png");
+    GridImage* elem19 = GridImage::create(GAME_IMAGES"imageNineteen.png");
     elem19->killCountDisplay();
     elem19->setImageName("Bossy Monica");
     m_colorVector.push_back(elem19);
     
-    GridImage* elem20 = GridImage::create("imageTwenty.jpg");
+    GridImage* elem20 = GridImage::create(GAME_IMAGES"imageTwenty.jpg");
     elem20->killCountDisplay();
     elem20->setImageName("Funny Chandler");
     m_colorVector.push_back(elem20);
     
-    GridImage* elem21 = GridImage::create("imageTwentyone.jpg");
+    GridImage* elem21 = GridImage::create(GAME_IMAGES"imageTwentyone.jpg");
     elem21->killCountDisplay();
     elem21->setImageName("Just Gunther");
     m_colorVector.push_back(elem21);
@@ -453,28 +503,28 @@ void StageTwo::fillImageVector()
 
 void StageTwo::createTopHeader()
 {
-    m_topHeader = LayerColor::create(Color4B(Color3B(166,166,208)), visibleSize.width, visibleSize.height * 0.1);
+    m_topHeader = LayerColor::create(Color4B::BLACK, visibleSize.width, visibleSize.height * 0.1);
     m_topHeader->setPosition(Vec2(0, visibleSize.height - visibleSize.height * 0.1));
     this->addChild(m_topHeader,1);
     
     Label* yourScroreText = Label::createWithTTF("KILL", GAME_FONT_HEADER, 60);
     yourScroreText->setAnchorPoint(Vec2(0,0.5));
     yourScroreText->setPosition(Vec2(30, m_topHeader->getContentSize().height * 0.475));
-    yourScroreText->setColor(Color3B::BLACK);
+    yourScroreText->setColor(Color3B::WHITE);
     m_topHeader->addChild(yourScroreText);
     
     
     m_playerKillName = Label::createWithTTF("-----", GAME_FONT_HEADER, 40);
     m_playerKillName->setAnchorPoint(Vec2(0.5,0.5));
     m_playerKillName->setPosition(Vec2(m_topHeader->getContentSize().width * 0.5, m_topHeader->getContentSize().height * 0.475));
-    m_playerKillName->setColor(Color3B::BLACK);
+    m_playerKillName->setColor(Color3B::WHITE);
     m_topHeader->addChild(m_playerKillName);
     
     
     playerScore = Label::createWithTTF(std::to_string(m_Score), GAME_FONT_HEADER, 70);
     playerScore->setAnchorPoint(Vec2(1, 0.5));
     playerScore->setPosition(Vec2(m_topHeader->getContentSize().width - 20, m_topHeader->getContentSize().height * 0.4));
-    playerScore->setColor(Color3B::BLACK);
+    playerScore->setColor(Color3B::WHITE);
     m_topHeader->addChild(playerScore);
 }
 
@@ -585,7 +635,7 @@ void StageTwo::createGameGrids(){
         }
         
         // create masked image and position to center it on screen
-        Node* clipNode = createRoundedRectMaskNode(maskSize, radius, 1.0f, 10);
+        Node* clipNode = AppDelegate::getDelegate()->createRoundedRectMaskNode(maskSize, radius, 1.0f, 10);
         clipNode->setAnchorPoint(Vec2(0,0));
         imageE->setAnchorPoint(Vec2(0,0));
         imageE->setPosition(Vec2(clipNode->getContentSize().width * 0.5, clipNode->getContentSize().height * 0.5));
@@ -607,65 +657,6 @@ void StageTwo::createGameGrids(){
 
 }
 
-
-void StageTwo::appendCubicBezier(int startPoint, std::vector<Vec2>& verts, const Vec2& from, const Vec2& control1, const Vec2& control2, const Vec2& to, uint32_t segments)
-{
-    float t = 0;
-    for(int i = 0; i < segments; i++)
-    {
-        float x = powf(1 - t, 3) * from.x + 3.0f * powf(1 - t, 2) * t * control1.x + 3.0f * (1 - t) * t * t * control2.x + t * t * t * to.x;
-        float y = powf(1 - t, 3) * from.y + 3.0f * powf(1 - t, 2) * t * control1.y + 3.0f * (1 - t) * t * t * control2.y + t * t * t * to.y;
-        verts[startPoint + i] = Vec2(x,y);
-        t += 1.0f / segments;
-    }
-}
-
-Node* StageTwo::createRoundedRectMaskNode(Size size, float radius, float borderWidth, int cornerSegments)
-{
-    const float kappa = 0.552228474;
-    float oneMinusKappa = (1.0f-kappa);
-    
-    // define corner control points
-    std::vector<Vec2> verts(16);
-    
-    verts[0] = Vec2(0, radius);
-    verts[1] = Vec2(0, radius * oneMinusKappa);
-    verts[2] = Vec2(radius * oneMinusKappa, 0);
-    verts[3] = Vec2(radius, 0);
-    
-    verts[4] = Vec2(size.width - radius, 0);
-    verts[5] = Vec2(size.width - radius * oneMinusKappa, 0);
-    verts[6] = Vec2(size.width, radius * oneMinusKappa);
-    verts[7] = Vec2(size.width, radius);
-    
-    verts[8] = Vec2(size.width, size.height - radius);
-    verts[9] = Vec2(size.width, size.height - radius * oneMinusKappa);
-    verts[10] = Vec2(size.width - radius * oneMinusKappa, size.height);
-    verts[11] = Vec2(size.width - radius, size.height);
-    
-    verts[12] = Vec2(radius, size.height);
-    verts[13] = Vec2(radius * oneMinusKappa, size.height);
-    verts[14] = Vec2(0, size.height - radius * oneMinusKappa);
-    verts[15] = Vec2(0, size.height - radius);
-    
-    // result
-    std::vector<Vec2> polyVerts(4 * cornerSegments + 1);
-    
-    // add corner arc segments
-    appendCubicBezier(0 * cornerSegments, polyVerts, verts[0], verts[1], verts[2], verts[3], cornerSegments);
-    appendCubicBezier(1 * cornerSegments, polyVerts, verts[4], verts[5], verts[6], verts[7], cornerSegments);
-    appendCubicBezier(2 * cornerSegments, polyVerts, verts[8], verts[9], verts[10], verts[11], cornerSegments);
-    appendCubicBezier(3 * cornerSegments, polyVerts, verts[12], verts[13], verts[14], verts[15], cornerSegments);
-    // close path
-    polyVerts[4 * cornerSegments] = verts[0];
-    
-    // draw final poly into mask
-    auto shapeMask = DrawNode::create();
-    shapeMask->drawPolygon(&polyVerts[0], polyVerts.size(), Color4F::WHITE, 0.0f, Color4F::WHITE);
-    
-    // create clip node with draw node as stencil (mask)
-    return ClippingNode::create(shapeMask);
-}
 
 void StageTwo::menuCloseCallback(Ref* pSender)
 {

@@ -341,8 +341,8 @@ void MainScene::createMiddleLayerContent(){
     std::string highScore = "HIGH SCORE :  " + std::to_string(value);
     
     highScoreTextSaveGame = Label::createWithTTF(highScore, FONT_HEADLINE, 20);
-    highScoreTextSaveGame->setAnchorPoint(Vec2(0, 0.5));
-    highScoreTextSaveGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.5 + 20, m_middleLayer->getContentSize().height * 0.4));
+    highScoreTextSaveGame->setAnchorPoint(Vec2(0.5, 0.5));
+    highScoreTextSaveGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.75, m_middleLayer->getContentSize().height * 0.4));
     m_middleLayer->addChild(highScoreTextSaveGame);
     
     Sprite* playButton = Sprite::create("rectangle.png");
@@ -363,12 +363,57 @@ void MainScene::createMiddleLayerContent(){
     playButtonPressed->addChild(playPressed);
     
     MenuItemSprite* playItemSaveMe = MenuItemSprite::create(playButton, playButtonPressed, CC_CALLBACK_1(MainScene::playSaveMeCallback, this));
-    playItemSaveMe->setPosition(Vec2(m_middleLayer->getContentSize().width* 0.8, playItemSaveMe->getContentSize().height * 0.75));
+    playItemSaveMe->setPosition(Vec2(m_middleLayer->getContentSize().width* 0.75, playItemSaveMe->getContentSize().height * 0.75));
     
     auto playMenuSaveMe = Menu::create(playItemSaveMe,NULL);
     playMenuSaveMe->setPosition(Vec2(0,0));
     m_middleLayer->addChild(playMenuSaveMe);
     
+    
+    //for QUIZ GAME
+    Label* gameNameQuiz = Label::createWithTTF("FRIENDS QUIZ", FONT_AFTON_JAMES, 40);
+    gameNameQuiz->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.25, m_middleLayer->getContentSize().height * 0.9));
+    m_middleLayer->addChild(gameNameQuiz);
+    
+    std::string descriptionQuiz = "Do you think you know it all about F.R.I.E.N.D.S? \n Take this challenge & prove it !";
+    Label* quizDescription = Label::createWithTTF(descriptionQuiz, FONT_DOSIS, 21);
+    quizDescription->setWidth(m_middleLayer->getContentSize().width * 0.4);
+    quizDescription->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.25, m_middleLayer->getContentSize().height * 0.67));
+    m_middleLayer->addChild(quizDescription);
+    
+    int value2 = userDef->getIntegerForKey(GAME_HIGH_SCORE_KEY_QUIZ_GAME, 0);
+    
+    std::string highScoreQuiz = "HIGH SCORE :  " + std::to_string(value2);
+    
+    highScoreQuizGame = Label::createWithTTF(highScoreQuiz, FONT_HEADLINE, 20);
+    highScoreQuizGame->setAnchorPoint(Vec2(0.5, 0.5));
+    highScoreQuizGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.25, m_middleLayer->getContentSize().height * 0.4));
+    m_middleLayer->addChild(highScoreQuizGame);
+    
+    Sprite* playButtonQuiz = Sprite::create("rectangle.png");
+    playButtonQuiz->setScaleY(0.8);
+    
+    Label* playQuiz = Label::createWithTTF("Let's Quiz", FONT_HEADLINE, 25);
+    playQuiz->setColor(Color3B::BLACK);
+    playQuiz->setPosition(Vec2(playButtonQuiz->getContentSize().width * 0.5, playButtonQuiz->getContentSize().height * 0.5));
+    playButtonQuiz->addChild(playQuiz);
+    
+    
+    Sprite* playButtonQuizPressed = Sprite::create("rectangle.png");
+    playButtonQuizPressed->setScaleY(0.8);
+    playButtonQuizPressed->setScaleX(0.95);
+    
+    Label* playQuizPressed = Label::createWithTTF("Let's Quiz", FONT_HEADLINE, 23);
+    playQuizPressed->setColor(Color3B::BLACK);
+    playQuizPressed->setPosition(Vec2(playButtonQuizPressed->getContentSize().width * 0.5, playButtonQuizPressed->getContentSize().height * 0.5));
+    playButtonQuizPressed->addChild(playQuizPressed);
+    
+    MenuItemSprite* playItemQuiz = MenuItemSprite::create(playButtonQuiz,playButtonQuizPressed,CC_CALLBACK_1(MainScene::playQuizCallback, this));
+    playItemQuiz->setPosition(Vec2(m_middleLayer->getContentSize().width* 0.25, playItemSaveMe->getContentSize().height * 0.75));
+    
+    auto playMenuQuiz = Menu::create(playItemQuiz,NULL);
+    playMenuQuiz->setPosition(Vec2(0,0));
+    m_middleLayer->addChild(playMenuQuiz);
 }
 
 //#pragma TableView
@@ -524,6 +569,11 @@ void MainScene::pheobeItemCallback(Ref* pSender){
 void MainScene::monicaItemCallback(Ref* pSender){
 
     CCLOG("inside monica");
+}
+
+void MainScene::playQuizCallback(Ref* pSender){
+
+    CCLOG("inside quiz call back");
 }
 
 void MainScene::playSaveMeCallback(Ref* pSender){

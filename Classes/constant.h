@@ -26,11 +26,13 @@
 #define IMAGE_PATH              "images/"
 #define CHARACTERS              "characters/"
 #define FLIP_IMAGES             "flipImages/"
+#define GAME_IMAGES             "saveMeGame/"
 
 #define GAME_HIGH_SCORE_KEY_SAVE_GAME     "High score Key"
+#define GAME_HIGH_SCORE_KEY_QUIZ_GAME     "High score qUIZ Key"
 
 
 #define SOUND_GUN_SHOT                       "sounds/shotGun.mp3"
-#define GAME_FONT_HEADER                     "fonts/SpongeboyMeBob.ttf"
+#define GAME_FONT_HEADER                     "fonts/AftonJames.ttf"
 
 #endif // __CONSTANTS_H__

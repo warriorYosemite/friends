@@ -188,7 +188,7 @@ std::string AppDelegate::getTrimmedStringWithRange(std::string text,int range)
 void AppDelegate::showMainScene(){
 
     auto scene = MainScene::createScene();
-    
+    CCLOG("calling main scene");
     auto curScene = Director::getInstance()->getRunningScene();
     if (curScene != NULL){
      
@@ -201,6 +201,7 @@ void AppDelegate::showMainScene(){
 
 void AppDelegate::PlaySaveMeGame(){
 
+    CCLOG("calling game save me scene");
     auto gameScene = StageTwo::createScene();
     Director::getInstance()->replaceScene(gameScene);
 
