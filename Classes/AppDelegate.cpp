@@ -4,6 +4,7 @@
 #include "MainScene.hpp"
 #include "codecvt"
 #include "StageTwo.h"
+#include <sqlite3.h>
 
 USING_NS_CC;
 
@@ -76,6 +77,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //    // run
 //    director->runWithScene(scene);
 
+    createDatabase();
+    
     showMainScene();
     
     return true;
@@ -199,10 +202,37 @@ void AppDelegate::showMainScene(){
     }
 }
 
+void AppDelegate::createDatabase(){
+
+    sqlite3* databasePath = NULL;
+    char* errorMessage = NULL;
+    std::string sqlQueryString;
+    int result;
+    std::string dbPath = FileUtils::getInstance()->getWritablePath();
+    dbPath.append("questionDatabase.sqlite");
+    
+    result = sqlite3_open(dbPath.c_str(), &databasePath);
+    if (result != SQLITE_OK){
+        
+        CCLOG("OPENING WRONG, %d, msg: %s", result, errorMessage);
+    }
+    CCLOG("result %d",result);
+    
+    result = sqlite3_exec(databasePath, "create table questions(question varchar(10000), a varchar(5000), b varchar(5000), c varchar(5000), d varchar(5000), count INT)", NULL, NULL, &errorMessage);
+    
+    if(result != SQLITE_OK){
+        CCLOG("CREATE TABLE FAIL %d, Msg: %s",result,errorMessage);
+    }
+    
+    CCLOG("KULDEEP : db path is %s", dbPath.c_str());
+    sqlite3_close(databasePath);
+}
+
 void AppDelegate::PlaySaveMeGame(){
 
     CCLOG("calling game save me scene");
     auto gameScene = StageTwo::createScene();
     Director::getInstance()->replaceScene(gameScene);
+    
 
 }

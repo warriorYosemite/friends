@@ -50,7 +50,7 @@ public:
     
     void PlaySaveMeGame();
     void showMainScene();
-    
+    void createDatabase();
     
     void appendCubicBezier(int startPoint, std::vector<Vec2>& verts, const Vec2& from, const Vec2& control1, const Vec2& control2, const Vec2& to, uint32_t segments);
     Node* createRoundedRectMaskNode(cocos2d::Size size, float radius, float borderWidth, int cornerSegments);
