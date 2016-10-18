@@ -51,8 +51,11 @@
 		521A8EA919F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		5B2AE8661DB6550200955025 /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B2AE8641DB6550200955025 /* greenButton.png */; };
+		5B2AE8671DB6550200955025 /* redButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B2AE8651DB6550200955025 /* redButton.png */; };
 		5B434FEE1DB4F23100EDC8EE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B434FED1DB4F23100EDC8EE /* libsqlite3.tbd */; };
 		5B4350001DB6139100EDC8EE /* LevelDetails.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B434FFE1DB6139100EDC8EE /* LevelDetails.cpp */; };
+		5B4350031DB632FB00EDC8EE /* QuizGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B4350011DB632FB00EDC8EE /* QuizGame.cpp */; };
 		5B508ED61DB49F8C00EADE19 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 5B508ED51DB49F8C00EADE19 /* images */; };
 		5B508ED91DB4A9C200EADE19 /* Mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B508ED71DB4A9C200EADE19 /* Mask.cpp */; };
 		5B508EE31DB4AD9800EADE19 /* flipImages in Resources */ = {isa = PBXBuildFile; fileRef = 5B508EE21DB4AD9800EADE19 /* flipImages */; };
@@ -161,9 +164,13 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		5B2AE8641DB6550200955025 /* greenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButton.png; sourceTree = "<group>"; };
+		5B2AE8651DB6550200955025 /* redButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redButton.png; sourceTree = "<group>"; };
 		5B434FED1DB4F23100EDC8EE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		5B434FFE1DB6139100EDC8EE /* LevelDetails.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelDetails.cpp; sourceTree = "<group>"; };
 		5B434FFF1DB6139100EDC8EE /* LevelDetails.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LevelDetails.hpp; sourceTree = "<group>"; };
+		5B4350011DB632FB00EDC8EE /* QuizGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuizGame.cpp; sourceTree = "<group>"; };
+		5B4350021DB632FB00EDC8EE /* QuizGame.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QuizGame.hpp; sourceTree = "<group>"; };
 		5B508ED51DB49F8C00EADE19 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		5B508ED71DB4A9C200EADE19 /* Mask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mask.cpp; sourceTree = "<group>"; };
 		5B508ED81DB4A9C200EADE19 /* Mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mask.h; sourceTree = "<group>"; };
@@ -325,6 +332,8 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5B2AE8641DB6550200955025 /* greenButton.png */,
+				5B2AE8651DB6550200955025 /* redButton.png */,
 				5B508F031DB4CD9A00EADE19 /* saveMeGame */,
 				5B508EF31DB4C6EC00EADE19 /* sounds */,
 				5B508EED1DB4C63900EADE19 /* board_9patch.png */,
@@ -356,6 +365,8 @@
 				5B508ED81DB4A9C200EADE19 /* Mask.h */,
 				5BDE72F11DB0EB0F00FB07AB /* SideLayer.cpp */,
 				5BDE72F21DB0EB0F00FB07AB /* SideLayer.hpp */,
+				5B4350011DB632FB00EDC8EE /* QuizGame.cpp */,
+				5B4350021DB632FB00EDC8EE /* QuizGame.hpp */,
 				5BDE72EE1DB0EAD100FB07AB /* MainScene.cpp */,
 				5BDE72EF1DB0EAD100FB07AB /* MainScene.hpp */,
 				5BDE72E61DB0DF5600FB07AB /* AppMacros.h */,
@@ -523,6 +534,7 @@
 				5B508EE51DB4BC2900EADE19 /* rectangle.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				5B2AE8661DB6550200955025 /* greenButton.png in Resources */,
 				5BDE72ED1DB0E28400FB07AB /* splashTwo.jpg in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
@@ -537,6 +549,7 @@
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				5B508F041DB4CD9A00EADE19 /* saveMeGame in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
+				5B2AE8671DB6550200955025 /* redButton.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
@@ -567,6 +580,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B4350031DB632FB00EDC8EE /* QuizGame.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				5BDE72EB1DB0DF5600FB07AB /* SplashScene.cpp in Sources */,
 				5B4350001DB6139100EDC8EE /* LevelDetails.cpp in Sources */,

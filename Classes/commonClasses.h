@@ -43,6 +43,25 @@ struct LevelDetailStruct{
     }
 };
 
+struct QuestionStruct{
+    
+    std::string m_question;
+    std::string m_optionA;
+    std::string m_optionB;
+    std::string m_optionC;
+    std::string m_optionD;
+    std::string m_answer;
+    
+    QuestionStruct(){
+        m_question = "";
+        m_optionA = "";
+        m_optionB = "";
+        m_optionC = "";
+        m_optionD = "";
+        m_answer = "";
+    }
+};
+
 enum CONTENT_TYPE{
     CONTENT_LATEST_POST,
     CONTENT_SSB_GUIDE,

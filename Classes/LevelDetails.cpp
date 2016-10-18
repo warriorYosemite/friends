@@ -8,6 +8,7 @@
 
 #include "LevelDetails.hpp"
 #include "constant.h"
+#include "QuizGame.hpp"
 
 using namespace cocos2d::extension;
 using namespace std;
@@ -208,7 +209,8 @@ void LevelDetails::tableCellTouched(TableView *table, TableViewCell *cell)
     }else{
     
         CCLOG("calling game scene from level detail layer");
-        
+        Scene* gameScene = QuizGame::createGameScene();
+        Director::getInstance()->replaceScene(gameScene);
     }
     
 }
@@ -238,7 +240,7 @@ void LevelDetails::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *pEvent)
 
 void LevelDetails::onExit()
 {
-    CCLOG("On exit Main Scene called");
+    CCLOG("On exit Level Details called");
     listener->release();
     
     Layer::onExit();

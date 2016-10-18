@@ -525,7 +525,8 @@ obj/local/armeabi-v7a/objs-debug/cocos2dcpp_shared/__/__/__/Classes/MainScene.o:
  jni/../../../Classes/SideLayer.hpp jni/../../../Classes/commonClasses.h \
  jni/../../../Classes/AppDelegate.h jni/../../../Classes/constant.h \
  jni/../../../Classes/Mask.h \
- /Users/machintosh/Desktop/softwares/android-ndk-r10e/sources/cxx-stl/llvm-libc++/libcxx/include/iostream
+ /Users/machintosh/Desktop/softwares/android-ndk-r10e/sources/cxx-stl/llvm-libc++/libcxx/include/iostream \
+ jni/../../../Classes/LevelDetails.hpp
 
 jni/../../../Classes/MainScene.hpp:
 
@@ -1584,3 +1585,5 @@ jni/../../../Classes/constant.h:
 jni/../../../Classes/Mask.h:
 
 /Users/machintosh/Desktop/softwares/android-ndk-r10e/sources/cxx-stl/llvm-libc++/libcxx/include/iostream:
+
+jni/../../../Classes/LevelDetails.hpp:

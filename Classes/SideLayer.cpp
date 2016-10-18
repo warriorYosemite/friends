@@ -294,7 +294,7 @@ void SideLayer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *pEvent)
 
 void SideLayer::onExit()
 {
-    CCLOG("On exit Main Scene called");
+    CCLOG("On exit Side Layer called");
     listener->release();
     
     Layer::onExit();
