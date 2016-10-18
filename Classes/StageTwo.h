@@ -22,6 +22,8 @@ public:
     LayerColor* m_topHeader;
     int m_Score;
     int m_highScore;
+    int m_myLevel;
+    
     
     float m_gridWidth;
     float m_gridHeight;

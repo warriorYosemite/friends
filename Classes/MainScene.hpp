@@ -49,6 +49,8 @@ public:
     
     Sprite* playerImage;
     Label* highScoreTextSaveGame;
+    Label* levelSaveMeGame;
+    Label* levelQuizGame;
     Label* highScoreQuizGame;
     
     std::vector<ItemsDetailStruct*> m_seasonList;

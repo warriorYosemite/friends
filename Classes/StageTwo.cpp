@@ -50,7 +50,6 @@ bool StageTwo::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     m_gridVector.clear();
     m_colorVector.clear();
-    m_countThreshold = 1;
     
     return true;
 }
@@ -70,6 +69,15 @@ void StageTwo::onEnter()
     m_deadCharacterVector.clear();
     m_aliveCharacterVector.clear();
     isLevelUp = false;
+    
+    
+    m_countThreshold = 1;
+    
+    m_myLevel = UserDefault::getInstance()->getIntegerForKey(GAME_SAVE_ME_LEVEL, 1);
+    if (m_myLevel > 3){
+        m_countThreshold = m_myLevel - 1;
+    }
+    
     
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(SOUND_GUN_SHOT);
     
@@ -229,7 +237,7 @@ bool StageTwo::onTouchBegan(Touch *touch, Event *event)
             {
                 CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_GUN_SHOT);
                 
-                m_Score++;
+                m_Score = m_Score + 3;;
                 playerScore->setString(std::to_string(m_Score));
                 
                 int killCount = colorE->getKillCount();
@@ -293,7 +301,7 @@ void StageTwo::handleGameOver(){
     
     if (isLevelUp){
     
-        popupHeader = "LEVEL UP !";
+        popupHeader = "LEVEL UP !   " + std::to_string(m_myLevel);
     }else{
     
         popupHeader = "GAME OVER !";
@@ -368,7 +376,12 @@ void StageTwo::restartGameScenario(Ref* pSender){
     if (isLevelUp){
     
         //do not edit the score
-        m_countThreshold = m_countThreshold + 2;
+        if (m_myLevel < 3){
+        
+            //do not edit the threshold
+        }else{
+            m_countThreshold = m_countThreshold + 1;
+        }
         
     }else{
     
@@ -385,7 +398,8 @@ void StageTwo::restartGameScenario(Ref* pSender){
     m_deadCharacterVector.clear();
     m_aliveCharacterVector.clear();
     m_gridVector.clear();
-    
+    m_colorVector.clear();
+    fillImageVector();
     
     for (int i=0; i< m_gridCount; i++)
     {
@@ -418,51 +432,7 @@ void StageTwo::setNumberOfGrids(int count)
 
 void StageTwo::fillImageVector()
 {
-    GridImage* elem1 = GridImage::create(GAME_IMAGES"imageOne.jpg");
-    elem1->killCountDisplay();
-    elem1->setImageName("Jack Geller");
-    m_colorVector.push_back(elem1);
-    
-    GridImage* elem2 = GridImage::create(GAME_IMAGES"imageTwo.jpg");
-    elem2->killCountDisplay();
-    elem2->setImageName("Judy Geller");
-    m_colorVector.push_back(elem2);
-    
-    GridImage* elem3 = GridImage::create(GAME_IMAGES"imageThree.jpg");
-    elem3->killCountDisplay();
-    elem3->setImageName("OMG Janice");
-    m_colorVector.push_back(elem3);
-    
-    GridImage* elem4 = GridImage::create(GAME_IMAGES"imageFour.jpg");
-    elem4->killCountDisplay();
-    elem4->setImageName("Mike Hannigan");
-    m_colorVector.push_back(elem4);
-    
-    GridImage* elem5 = GridImage::create(GAME_IMAGES"imageFive.png");
-    elem5->killCountDisplay();
-    elem5->setImageName("Carol Willick");
-    m_colorVector.push_back(elem5);
-    
-    GridImage* elem6 = GridImage::create(GAME_IMAGES"imageSix.jpg");
-    elem6->killCountDisplay();
-    elem6->setImageName("Richard Burke");
-    m_colorVector.push_back(elem6);
-    
-    GridImage* elem7 = GridImage::create(GAME_IMAGES"imageSeven.jpg");
-    elem7->killCountDisplay();
-    elem7->setImageName("David");
-    m_colorVector.push_back(elem7);
-    
-    GridImage* elem8 = GridImage::create(GAME_IMAGES"imageEight.jpg");
-    elem8->killCountDisplay();
-    elem8->setImageName("Paul Stevens");
-    m_colorVector.push_back(elem8);
-    
-    GridImage* elem9 = GridImage::create(GAME_IMAGES"imageNine.jpg");
-    elem9->killCountDisplay();
-    elem9->setImageName("Gavin Mitchell");
-    m_colorVector.push_back(elem9);
-    
+
     GridImage* elem15 = GridImage::create(GAME_IMAGES"imageFifteen.jpg");
     elem15->killCountDisplay();
     elem15->setImageName("Pizza Joey");
@@ -497,6 +467,75 @@ void StageTwo::fillImageVector()
     elem21->killCountDisplay();
     elem21->setImageName("Just Gunther");
     m_colorVector.push_back(elem21);
+    
+    GridImage* elem3 = GridImage::create(GAME_IMAGES"imageThree.jpg");
+    elem3->killCountDisplay();
+    elem3->setImageName("OMG Janice");
+    m_colorVector.push_back(elem3);
+    
+    if (m_myLevel > 2){
+     
+        GridImage* elem4 = GridImage::create(GAME_IMAGES"imageFour.jpg");
+        elem4->killCountDisplay();
+        elem4->setImageName("Mike Hannigan");
+        m_colorVector.push_back(elem4);
+    }
+    
+    if (m_myLevel > 3){
+        GridImage* elem1 = GridImage::create(GAME_IMAGES"imageOne.jpg");
+        elem1->killCountDisplay();
+        elem1->setImageName("Jack Geller");
+        m_colorVector.push_back(elem1);
+    }
+    if (m_myLevel > 4){
+        GridImage* elem2 = GridImage::create(GAME_IMAGES"imageTwo.jpg");
+        elem2->killCountDisplay();
+        elem2->setImageName("Judy Geller");
+        m_colorVector.push_back(elem2);
+    }
+    if (m_myLevel > 5){
+    
+        GridImage* elem5 = GridImage::create(GAME_IMAGES"imageFive.png");
+        elem5->killCountDisplay();
+        elem5->setImageName("Carol Willick");
+        m_colorVector.push_back(elem5);
+        
+    }
+    if (m_myLevel > 6){
+    
+        GridImage* elem6 = GridImage::create(GAME_IMAGES"imageSix.jpg");
+        elem6->killCountDisplay();
+        elem6->setImageName("Richard Burke");
+        m_colorVector.push_back(elem6);
+        
+    }
+    if (m_myLevel > 7){
+
+        GridImage* elem7 = GridImage::create(GAME_IMAGES"imageSeven.jpg");
+        elem7->killCountDisplay();
+        elem7->setImageName("David");
+        m_colorVector.push_back(elem7);
+    
+    }
+    
+    if (m_myLevel > 8){
+    
+        GridImage* elem9 = GridImage::create(GAME_IMAGES"imageNine.jpg");
+        elem9->killCountDisplay();
+        elem9->setImageName("Gavin Mitchell");
+        m_colorVector.push_back(elem9);
+        
+    }
+    
+    if (m_myLevel > 9){
+        
+        GridImage* elem8 = GridImage::create(GAME_IMAGES"imageEight.jpg");
+        elem8->killCountDisplay();
+        elem8->setImageName("Paul Stevens");
+        m_colorVector.push_back(elem8);
+
+    }
+
 }
 
 
@@ -537,7 +576,7 @@ void StageTwo::updateColors(float dt)
         std::string currDisplayedName = m_playerKillName->getString();
         if (m_selectedPlayerName.compare(currDisplayedName)== 0)
         {
-            m_Score++;
+            m_Score = m_Score + 3;
             playerScore->setString(std::to_string(m_Score));
         }
         else{
@@ -553,6 +592,10 @@ void StageTwo::updateColors(float dt)
     if (totalElemLeft == 1){
     
         isLevelUp = true;
+        int level = m_myLevel + 1;
+        UserDefault::getInstance()->setIntegerForKey(GAME_SAVE_ME_LEVEL, level);
+        UserDefault::getInstance()->flush();
+        m_myLevel = level;
         handleGameOver();
         return;
     }

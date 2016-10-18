@@ -92,7 +92,7 @@ void MainScene::onEnter()
 
 void MainScene::updateCharacterImage(float dt){
 
-    CCLOG("inside image update");
+//    CCLOG("inside image update");
     
     if (playerImage){
         countImage++;
@@ -340,10 +340,19 @@ void MainScene::createMiddleLayerContent(){
     
     std::string highScore = "HIGH SCORE :  " + std::to_string(value);
     
-    highScoreTextSaveGame = Label::createWithTTF(highScore, FONT_HEADLINE, 20);
+    highScoreTextSaveGame = Label::createWithTTF(highScore, FONT_HEADLINE, 19);
     highScoreTextSaveGame->setAnchorPoint(Vec2(0.5, 0.5));
-    highScoreTextSaveGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.75, m_middleLayer->getContentSize().height * 0.4));
+    highScoreTextSaveGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.75, m_middleLayer->getContentSize().height * 0.45));
     m_middleLayer->addChild(highScoreTextSaveGame);
+    
+    int level = userDef->getIntegerForKey(GAME_SAVE_ME_LEVEL, 1);
+    
+    std::string userLevel = "LEVEL :  " + std::to_string(level);
+    
+    levelSaveMeGame = Label::createWithTTF(userLevel, FONT_HEADLINE, 19);
+    levelSaveMeGame->setAnchorPoint(Vec2(0.5, 0.5));
+    levelSaveMeGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.75, m_middleLayer->getContentSize().height * 0.35));
+    m_middleLayer->addChild(levelSaveMeGame);
     
     Sprite* playButton = Sprite::create("rectangle.png");
     playButton->setScaleY(0.8);
@@ -385,10 +394,20 @@ void MainScene::createMiddleLayerContent(){
     
     std::string highScoreQuiz = "HIGH SCORE :  " + std::to_string(value2);
     
-    highScoreQuizGame = Label::createWithTTF(highScoreQuiz, FONT_HEADLINE, 20);
+    highScoreQuizGame = Label::createWithTTF(highScoreQuiz, FONT_HEADLINE, 19);
     highScoreQuizGame->setAnchorPoint(Vec2(0.5, 0.5));
-    highScoreQuizGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.25, m_middleLayer->getContentSize().height * 0.4));
+    highScoreQuizGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.25, m_middleLayer->getContentSize().height * 0.45));
     m_middleLayer->addChild(highScoreQuizGame);
+    
+    
+    int levelQuiz = userDef->getIntegerForKey(GAME_QUIZ_LEVEL, 1);
+    
+    std::string userLevelQuiz = "LEVEL :  " + std::to_string(levelQuiz);
+    
+    levelQuizGame = Label::createWithTTF(userLevelQuiz, FONT_HEADLINE, 19);
+    levelQuizGame->setAnchorPoint(Vec2(0.5, 0.5));
+    levelQuizGame->setPosition(Vec2(m_middleLayer->getContentSize().width * 0.25, m_middleLayer->getContentSize().height * 0.35));
+    m_middleLayer->addChild(levelQuizGame);
     
     Sprite* playButtonQuiz = Sprite::create("rectangle.png");
     playButtonQuiz->setScaleY(0.8);
@@ -414,6 +433,8 @@ void MainScene::createMiddleLayerContent(){
     auto playMenuQuiz = Menu::create(playItemQuiz,NULL);
     playMenuQuiz->setPosition(Vec2(0,0));
     m_middleLayer->addChild(playMenuQuiz);
+    
+    userDef->flush();
 }
 
 //#pragma TableView

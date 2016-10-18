@@ -31,6 +31,9 @@
 #define GAME_HIGH_SCORE_KEY_SAVE_GAME     "High score Key"
 #define GAME_HIGH_SCORE_KEY_QUIZ_GAME     "High score qUIZ Key"
 
+#define GAME_SAVE_ME_LEVEL                "User level for save me game"
+#define GAME_QUIZ_LEVEL                   "User level for Quiz game"
+
 
 #define SOUND_GUN_SHOT                       "sounds/shotGun.mp3"
 #define GAME_FONT_HEADER                     "fonts/AftonJames.ttf"
