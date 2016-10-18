@@ -10,6 +10,7 @@
 #include "AppDelegate.h"
 #include "constant.h"
 #include "Mask.h"
+#include "LevelDetails.hpp"
 
 USING_NS_CC_EXT;
 using namespace std;
@@ -595,6 +596,8 @@ void MainScene::monicaItemCallback(Ref* pSender){
 void MainScene::playQuizCallback(Ref* pSender){
 
     CCLOG("inside quiz call back");
+    LevelDetails* levelDetails = LevelDetails::createLayer();
+    this->addChild(levelDetails);
 }
 
 void MainScene::playSaveMeCallback(Ref* pSender){

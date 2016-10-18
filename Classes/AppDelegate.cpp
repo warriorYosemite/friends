@@ -224,6 +224,16 @@ void AppDelegate::createDatabase(){
         CCLOG("CREATE TABLE FAIL %d, Msg: %s",result,errorMessage);
     }
     
+    result = sqlite3_exec(databasePath, "insert into questions values ('Which TV soap Joey Features on FRIENDS?', 'Days of our lifes', 'Its Life', 'Eat and Sleep', 'Days are high', 0)" , NULL, NULL, NULL);
+    
+    result = sqlite3_exec(databasePath, "insert into questions values ('What was the name of Ross & Rachel daughter ?', 'Emma', 'Charlie', 'Emily', 'Amy', 0)" , NULL, NULL, NULL);
+
+    result = sqlite3_exec(databasePath, "insert into questions values ('Which FRIENDS actor never got nominated for Emmy awards in any category ?', 'Courtney Cox', 'Matt Le Blanc', 'Lisa Kudrow', 'Matthew Perry', 0)" , NULL, NULL, NULL);
+
+    result = sqlite3_exec(databasePath, "insert into questions values ('I will be there for you: was sang by?', 'The Rembrandts', 'Beatles', 'Green Day', 'Nirvana', 0)" , NULL, NULL, NULL);
+
+    result = sqlite3_exec(databasePath, "insert into questions values ('Which character also directed few of FRIENDS episodes?', 'Ross', 'Chandler', 'Pheobe', 'Monica', 0)" , NULL, NULL, NULL);
+
     CCLOG("KULDEEP : db path is %s", dbPath.c_str());
     sqlite3_close(databasePath);
 }

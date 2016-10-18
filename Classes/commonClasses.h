@@ -24,6 +24,25 @@ struct ItemsDetailStruct{
     }
 };
 
+struct LevelDetailStruct{
+    
+    std::string m_level;
+    int m_currentQuestions;
+    int m_totalQestions;
+    std::string m_levelName;
+    bool isLocked;
+    
+    LevelDetailStruct(){
+        
+        m_level = "";
+        m_levelName = "";
+        m_currentQuestions = 0;
+        m_totalQestions = 0;
+        isLocked = true;
+        
+    }
+};
+
 enum CONTENT_TYPE{
     CONTENT_LATEST_POST,
     CONTENT_SSB_GUIDE,
