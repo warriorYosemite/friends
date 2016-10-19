@@ -52,6 +52,7 @@ public:
     MenuItemSprite* option3;
     MenuItemSprite* option4;
     
+    bool isGameOver;
     int m_score;
     int m_timer;
     

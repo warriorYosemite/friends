@@ -24,6 +24,38 @@ struct ItemsDetailStruct{
     }
 };
 
+struct TransformationStruct{
+    
+    std::string m_characterName;
+    std::string m_urlSeason1;
+    std::string m_urlSeason2;
+    std::string m_urlSeason3;
+    std::string m_urlSeason4;
+    std::string m_urlSeason5;
+    std::string m_urlSeason6;
+    std::string m_urlSeason7;
+    std::string m_urlSeason8;
+    std::string m_urlSeason9;
+    std::string m_urlSeason10;
+    
+    TransformationStruct(){
+        
+        m_characterName = "";
+        m_urlSeason1 = "";
+        m_urlSeason2 = "";
+        m_urlSeason3 = "";
+        m_urlSeason4 = "";
+        m_urlSeason5 = "";
+        m_urlSeason6 = "";
+        m_urlSeason7 = "";
+        m_urlSeason8 = "";
+        m_urlSeason9 = "";
+        m_urlSeason10 = "";
+    }
+};
+
+
+
 struct LevelDetailStruct{
     
     std::string m_level;

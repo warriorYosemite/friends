@@ -69,6 +69,7 @@ void QuizGame::onEnter()
     curIndex = 0;
     totalQuestions= 0;
     m_score =0;
+    isGameOver = false;
     
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     listener = EventListenerTouchOneByOne::create();
@@ -381,9 +382,12 @@ void QuizGame::answerCallBack(Ref* pSender){
         CCLOG("inside next question call");
         
         prepareNextQuestion();
-        
-        Node::onEnter();
-        this->schedule(CC_SCHEDULE_SELECTOR(QuizGame::reduceTimer), 1);
+        if (!isGameOver){
+            
+            Node::onEnter();
+            this->schedule(CC_SCHEDULE_SELECTOR(QuizGame::reduceTimer), 1);
+
+        }
     });
     
     auto sequence = Sequence::create(DelayTime::create(1), callFun1, NULL);
@@ -401,9 +405,8 @@ void QuizGame::prepareNextQuestion(){
     if (curIndex == m_questionList.size()){
         
         CCLOG("game over 2");
-        
+        isGameOver = true;
         UserDefault::getInstance()->setIntegerForKey(GAME_HIGH_SCORE_KEY_QUIZ_GAME, m_score);
-        
         this->unschedule(CC_SCHEDULE_SELECTOR(QuizGame::reduceTimer));
         return;
     }

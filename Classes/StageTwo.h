@@ -42,6 +42,8 @@ public:
     bool isGameOver;
     bool isCharacterSelected;
     
+    cocos2d::EventListenerKeyboard *m_keyboardListener;
+    
 //    EventListenerTouchOneByOne* touchListener;
     
     Scale9Sprite* popUpLayer;
@@ -82,6 +84,7 @@ public:
     virtual bool onTouchBegan(Touch *touch, Event *unused_event);
     virtual void onTouchEnded(Touch *touch, Event *unused_event);
     
+    virtual void onKeyReleased(EventKeyboard::KeyCode keyCode, Event *pEvent);
     
     // implement the "static create()" method manually
     CREATE_FUNC(StageTwo);

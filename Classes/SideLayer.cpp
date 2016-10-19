@@ -8,9 +8,14 @@
 
 #include "SideLayer.hpp"
 #include "constant.h"
+#include "Transformation.hpp"
+#include "MainScene.hpp"
+
 
 using namespace cocos2d::extension;
 using namespace std;
+
+#define CELL_LABEL_TAG                      800
 
 SideLayer* SideLayer::createLayer()
 {
@@ -192,6 +197,7 @@ TableViewCell* SideLayer::tableCellAtIndex(TableView *table, ssize_t idx)
     Label* nameLabel = Label::createWithTTF(name, FONT_DOSIS, 27);
     nameLabel->setAnchorPoint(Vec2(0, 0.5));
     nameLabel->setColor(Color3B::BLACK);
+    nameLabel->setTag(CELL_LABEL_TAG);
     nameLabel->setPosition(Vec2(tableWidth * 0.15, rowHeight * 0.5));
     cell->addChild(nameLabel);
     
@@ -210,6 +216,25 @@ void SideLayer::tableCellTouched(TableView *table, TableViewCell *cell)
     CCLOG("CELL %zd ", cell->getIdx());
     
     int idx = (int)cell->getIdx();
+    
+    Label* settingName = (Label*)cell->getChildByTag(CELL_LABEL_TAG);
+    
+    std::string name = settingName->getString();
+    if (name.compare("Transformation") == 0){
+    
+        CCLOG("opening transformation layer");
+        this->runExitAnimation();
+        Transformation* transLayer = Transformation::createLayer();
+        MainScene* curScene = (MainScene*)Director::getInstance()->getRunningScene()->getChildren().at(1);
+        if (curScene != NULL){
+        
+            curScene->addChild(transLayer, 10);
+        }
+        
+        
+    }
+    
+    
     
 }
 

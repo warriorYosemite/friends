@@ -69,7 +69,7 @@ void StageTwo::onEnter()
     m_deadCharacterVector.clear();
     m_aliveCharacterVector.clear();
     isLevelUp = false;
-    
+    m_keyboardListener = NULL;
     
     m_countThreshold = 1;
     
@@ -102,6 +102,10 @@ void StageTwo::onEnter()
     touchListener->onTouchEnded = CC_CALLBACK_2(StageTwo::onTouchEnded, this);
     dispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 
+    m_keyboardListener = EventListenerKeyboard::create();
+    m_keyboardListener->onKeyReleased = CC_CALLBACK_2(StageTwo::onKeyReleased, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_keyboardListener, this);
+    
     Node::onEnter();
 //    this->schedule(CC_SCHEDULE_SELECTOR(StageTwo::updateColors), TIME_DURATION);
 }
@@ -700,6 +704,14 @@ void StageTwo::createGameGrids(){
 
 }
 
+void StageTwo::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *pEvent)
+{
+    pEvent->stopPropagation();
+    if(keyCode == EventKeyboard::KeyCode::KEY_BACK || keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+    {
+        homeButtonCallback(NULL);
+    }
+}
 
 void StageTwo::menuCloseCallback(Ref* pSender)
 {
