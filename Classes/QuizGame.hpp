@@ -38,6 +38,7 @@ public:
     Scale9Sprite* m_questionBg;
     
     int curIndex;
+    int totalQuestions;
     
     Label* m_currQuestion;
     Label* m_optionOne;
@@ -53,6 +54,7 @@ public:
     
     int m_score;
     int m_timer;
+    
     Label* scoreLabel;
     Label* timerLabel;
     Label* questionLabel;
@@ -61,7 +63,9 @@ public:
     void createOptionsHolder();
     void updateNextQuestion(QuestionStruct* question);
     void fillDataBase();
-    
+    void setGameData();
+    void reduceTimer(float dt);
+    void prepareNextQuestion();
     
     void optionOneCallBack(Ref* pSender);
     void optionTwoCallBack(Ref* pSender);

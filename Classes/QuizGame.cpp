@@ -24,6 +24,8 @@ USING_NS_CC;
 #define OPTION_THREE_TAG                        212
 #define OPTION_FOUR_TAG                         213
 
+#define TIMER_DURATION                          8
+#define CORRECT_ANSWER_SCORE                    10
 
 using namespace std;
 
@@ -65,6 +67,8 @@ void QuizGame::onEnter()
 {
     
     curIndex = 0;
+    totalQuestions= 0;
+    m_score =0;
     
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     listener = EventListenerTouchOneByOne::create();
@@ -83,6 +87,8 @@ void QuizGame::onEnter()
     fillDataBase();
     createGameSceneBackground();
     createOptionsHolder();
+    
+    setGameData();
     
 }
 
@@ -127,7 +133,7 @@ void QuizGame::fillDataBase(){
     item4->m_answer = "The Rembrandts";
     
     m_questionList.push_back(item4);
-
+    
 }
 
 void QuizGame::createGameSceneBackground(){
@@ -210,7 +216,9 @@ void QuizGame::createOptionsHolder(){
     //touch was not working on the menu item sprite, hence using this
     Node::onEnter();
     
-    scoreLabel = Label::createWithTTF("SCORE \n 3", FONT_AFTON_JAMES, 40);
+    std::string userScore = "SCORE \n  " + std::to_string(m_score);
+    
+    scoreLabel = Label::createWithTTF(userScore, FONT_AFTON_JAMES, 40);
     scoreLabel->setAnchorPoint(Vec2(0, 0.5));
     scoreLabel->setPosition(Vec2(20, scoreLabel->getContentSize().height * 0.65));
     this->addChild(scoreLabel);
@@ -219,8 +227,12 @@ void QuizGame::createOptionsHolder(){
     timerLabel->setPosition(Vec2(visibleSize.width * 0.5, timerLabel->getContentSize().height * 0.65));
     this->addChild(timerLabel);
  
+    std::string curQuest = std::to_string(curIndex + 1);
+    std::string totalQ = std::to_string(totalQuestions);
     
-    questionLabel = Label::createWithTTF("QUESTION \n 3/100", FONT_AFTON_JAMES, 40);
+    std::string questionProg = "QUESTION \n  " + curQuest + " / " + totalQ;
+    
+    questionLabel = Label::createWithTTF(questionProg, FONT_AFTON_JAMES, 40);
     questionLabel->setAnchorPoint(Vec2(1, 0.5));
     questionLabel->setPosition(Vec2(visibleSize.width - 20, questionLabel->getContentSize().height * 0.65));
     this->addChild(questionLabel);
@@ -251,6 +263,17 @@ void QuizGame::createOptionsHolder(){
     
     QuestionStruct* question1 = m_questionList.at(curIndex);
     updateNextQuestion(question1);
+    
+    Node::onEnter();
+    this->schedule(CC_SCHEDULE_SELECTOR(QuizGame::reduceTimer), 1);
+}
+
+void QuizGame::setGameData(){
+
+    totalQuestions = m_questionList.size();
+    m_timer = TIMER_DURATION;
+    timerLabel->setString(std::to_string(m_timer));
+
 }
 
 void QuizGame::updateNextQuestion(QuestionStruct* question){
@@ -262,6 +285,19 @@ void QuizGame::updateNextQuestion(QuestionStruct* question){
         option3->setEnabled(true);
         option4->setEnabled(true);
 
+        if (totalQuestions == 0){
+            totalQuestions = m_questionList.size();
+        }
+        
+        //UPDATE ALL LABELS HERE
+        m_timer = TIMER_DURATION;
+        timerLabel->setString(std::to_string(m_timer));
+        
+        std::string curQuest = std::to_string(curIndex + 1);
+        std::string totalQ = std::to_string(totalQuestions);
+        std::string questionProg = "QUESTION \n  " + curQuest + " / " + totalQ;
+        
+        questionLabel->setString(questionProg);
         
         std::string questionName = question->m_question;
         std::string optionA = question->m_optionA;
@@ -303,28 +339,6 @@ void QuizGame::updateNextQuestion(QuestionStruct* question){
     }
 }
 
-void QuizGame::optionOneCallBack(Ref* pSender){
-
-    CCLOG("option one callback");
-}
-
-void QuizGame::optionTwoCallBack(Ref* pSender){
-
-    CCLOG("option two callback");
-
-}
-
-void QuizGame::optionThreeCallBack(Ref* pSender){
-
-    CCLOG("option three callback");
-}
-
-void QuizGame::optionFourCallBack(Ref* pSender){
-
-    CCLOG("option four callback");
-
-}
-
 void QuizGame::answerCallBack(Ref* pSender){
     
     CCLOG("answer callback selected");
@@ -341,6 +355,9 @@ void QuizGame::answerCallBack(Ref* pSender){
         image = Scale9Sprite::create("greenButton.png");
         resultText = Label::createWithTTF("Yay Correct !", FONT_DOSIS, FONT_OPTION);
         
+        m_score = m_score + CORRECT_ANSWER_SCORE;
+        std::string userScore = "SCORE \n  " + std::to_string(m_score);
+        scoreLabel->setString(userScore);
         
     }else{
         
@@ -357,27 +374,57 @@ void QuizGame::answerCallBack(Ref* pSender){
     resultText->setPosition(Vec2(image->getContentSize().width * 0.5, image->getContentSize().height * 0.5));
     image->addChild(resultText);
     
+    this->unschedule(CC_SCHEDULE_SELECTOR(QuizGame::reduceTimer));
     
+    CallFunc* callFun1 = CallFunc::create([=]{
+    
+        CCLOG("inside next question call");
+        
+        prepareNextQuestion();
+        
+        Node::onEnter();
+        this->schedule(CC_SCHEDULE_SELECTOR(QuizGame::reduceTimer), 1);
+    });
+    
+    auto sequence = Sequence::create(DelayTime::create(1), callFun1, NULL);
+    this->runAction(sequence);
+}
+
+void QuizGame::prepareNextQuestion(){
+
     option1->setEnabled(false);
     option2->setEnabled(false);
     option3->setEnabled(false);
     option4->setEnabled(false);
     
-    CallFunc* callFun1 = CallFunc::create([=]{
+    curIndex++;
+    if (curIndex == m_questionList.size()){
+        
+        CCLOG("game over 2");
+        
+        UserDefault::getInstance()->setIntegerForKey(GAME_HIGH_SCORE_KEY_QUIZ_GAME, m_score);
+        
+        this->unschedule(CC_SCHEDULE_SELECTOR(QuizGame::reduceTimer));
+        return;
+    }
+    QuestionStruct* nextQuestion =  m_questionList.at(curIndex);
+    updateNextQuestion(nextQuestion);
     
-        CCLOG("inside next question call");
-        curIndex++;
-        if (curIndex == m_questionList.size()){
-            
-            CCLOG("game over");
-            return;
-        }
-        QuestionStruct* nextQuestion =  m_questionList.at(curIndex);
-        updateNextQuestion(nextQuestion);
-    });
+}
+
+void QuizGame::reduceTimer(float dt){
     
-    auto sequence = Sequence::create(DelayTime::create(3), callFun1, NULL);
-    this->runAction(sequence);
+    if (m_timer == 0){
+        
+        prepareNextQuestion();
+        
+    }else{
+    
+        m_timer--;
+    }
+    
+    timerLabel->setString(std::to_string(m_timer));
+    
 }
 
 void QuizGame::onExit()
@@ -385,6 +432,29 @@ void QuizGame::onExit()
     listener->release();
     Layer::onExit();
 }
+
+void QuizGame::optionOneCallBack(Ref* pSender){
+    
+    CCLOG("option one callback");
+}
+
+void QuizGame::optionTwoCallBack(Ref* pSender){
+    
+    CCLOG("option two callback");
+    
+}
+
+void QuizGame::optionThreeCallBack(Ref* pSender){
+    
+    CCLOG("option three callback");
+}
+
+void QuizGame::optionFourCallBack(Ref* pSender){
+    
+    CCLOG("option four callback");
+    
+}
+
 
 void QuizGame::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *pEvent)
 {

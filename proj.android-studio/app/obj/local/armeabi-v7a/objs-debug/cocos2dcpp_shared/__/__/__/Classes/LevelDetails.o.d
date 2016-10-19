@@ -523,7 +523,8 @@ obj/local/armeabi-v7a/objs-debug/cocos2dcpp_shared/__/__/__/Classes/LevelDetails
  /Users/machintosh/Desktop/testproject/Friends/proj.android-studio/../cocos2d/extensions/../extensions/Particle3D/CCParticleSystem3D.h \
  /Users/machintosh/Desktop/testproject/Friends/proj.android-studio/../cocos2d/extensions/../extensions/Particle3D/PU/CCPUParticleSystem3D.h \
  /Users/machintosh/Desktop/testproject/Friends/proj.android-studio/../cocos2d/extensions/../extensions/Particle3D/CCParticleSystem3D.h \
- jni/../../../Classes/commonClasses.h jni/../../../Classes/constant.h
+ jni/../../../Classes/commonClasses.h jni/../../../Classes/constant.h \
+ jni/../../../Classes/QuizGame.hpp
 
 jni/../../../Classes/LevelDetails.hpp:
 
@@ -1574,3 +1575,5 @@ jni/../../../Classes/LevelDetails.hpp:
 jni/../../../Classes/commonClasses.h:
 
 jni/../../../Classes/constant.h:
+
+jni/../../../Classes/QuizGame.hpp:
